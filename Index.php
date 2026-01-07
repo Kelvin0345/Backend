@@ -18,9 +18,41 @@ $dsn = "mysql:host=$dbHost;
  */
 $pdo = new PDO($dsn, $dbUser,$dbPass);
 
+/**
+ * select sql query
+ * 
+ * 
+ */
+
+$sql = "select Have Id
+              ,Have RollerCoaster
+              ,Have AmusmentPark
+              ,Have Country
+              ,Have TopSpeed
+              ,Have Height
+              ,DATE_FORMAT(Have YearOfConstruction, '%d-%m-%Y') AS YOFC
+        FROM HoogsteAchtbaanVanEuropaAS HAVE 
+        ORDER BY HAVE Height DESC";
 
 
+ /**
+ * STATEMENTS
+ */
 
+$statement = $pdo->prepare($sql);
+
+//uitvoeren
+
+$statement ->execute();
+
+
+//Array
+
+$result = $statement->fetchAll(PDO::FETCH_OBJ);
+
+//data selecteren
+
+var_dump($result);
 
 ?>
 
