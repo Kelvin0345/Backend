@@ -72,3 +72,20 @@ VALUES
     ,('Hyperion', 'Energylandia', 'Polen', 142, 77, '2018-08-14')
     ,('Shambhala', 'PortAventura Park', 'Spanje', 134, 76, '2012-04-07')
     ,('Schwur des Kärnen', 'Hansa Park', 'Duitsland', 127, 73, '2017-02-25');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

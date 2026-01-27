@@ -24,15 +24,15 @@ $pdo = new PDO($dsn, $dbUser,$dbPass);
  * 
  */
 
-$sql = "select Have Id
-              ,Have RollerCoaster
-              ,Have AmusmentPark
-              ,Have Country
-              ,Have TopSpeed
-              ,Have Height
-              ,DATE_FORMAT(Have YearOfConstruction, '%d-%m-%Y') AS YOFC
-        FROM HoogsteAchtbaanVanEuropaAS HAVE 
-        ORDER BY HAVE Height DESC";
+$sql = "SELECT HAVE.Id
+              ,HAVE.RollerCoaster
+              ,HAVE.AmusementPark
+              ,HAVE.Country
+              ,HAVE.TopSpeed
+              ,HAVE.Height
+              ,DATE_FORMAT (Have.YearOfConstruction, '%d-%m-%Y') AS YOFC
+        FROM Rollercoaster AS HAVE
+        ORDER BY HAVE.Height DESC";
 
 
  /**
@@ -43,7 +43,7 @@ $statement = $pdo->prepare($sql);
 
 //uitvoeren
 
-$statement ->execute();
+$statement->execute();
 
 
 //Array
@@ -52,7 +52,7 @@ $result = $statement->fetchAll(PDO::FETCH_OBJ);
 
 //data selecteren
 
-var_dump($result);
+//var_dump($result);
 
 ?>
 
@@ -66,6 +66,8 @@ var_dump($result);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
          rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    
 </head>
 <body>
     <div class="container-mt-3">
@@ -74,6 +76,10 @@ var_dump($result);
             <div class="col-8">
                 <h3>Hoogste achtbanen van Europa</h3>
             </div>
+        </div>
+
+        <div class="row justidy-content-center my-3">
+            <div class="col-10"><h6>Nieuwe achtbaan <a href="./create.php"><i class="bi bi-plus-square text-danger text-danger"></i></h6></a></div>
         </div>
 
         <div class="row-justify-content-center mt-3">
@@ -86,48 +92,32 @@ var_dump($result);
                         <th>Topsnelheid (km/u)</th>
                         <th>hoogte(M)</th>
                         <th>Bouwjaar</th>
+                        <th>Wijzig</th>
+                        <th>Verwijder</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Kingda Ka</td>
-                            <td>Six Flags Great Adventure</td>
-                            <td>Verenigd Koninkrijk</td>
-                            <td>206</td>
-                            <td>127</td>
-                            <td>2005-10-21</td>
-                        </tr>
-                        <tr>
-                            <td>Red Force</td>
-                            <td>Ferrari Land</td>
-                            <td>Spanje</td>
-                            <td>180</td>
-                            <td>112</td>
-                            <td>2017-04-07</td>
-                        </tr>
-                        <tr>
-                            <td>Hyperion</td>
-                            <td>Energylandia</td>
-                            <td>Polen</td>
-                            <td>142</td>
-                            <td>77</td>
-                            <td>2018-08-14</td>
-                        </tr>
-                        <tr>
-                            <td>Shambhala</td>
-                            <td>PortAventura Park</td>
-                            <td>Spanje</td>
-                            <td>134</td>
-                            <td>76</td>
-                            <td>2012-04-07</td>
-                        </tr>
-                        <tr>
-                            <td>Schwur des Kärnen</td>
-                            <td>Hansa Park</td>
-                            <td>Duitsland</td>
-                            <td>127</td>
-                            <td>73</td>
-                            <td>2017-02-25</td>
-                        </tr>
+                        <?php foreach ($result as $Rollercoaster):?>
+                            <tr>
+                                <td><?= $Rollercoaster->RollerCoaster; ?></td>
+                                <td><?= $Rollercoaster->AmusementPark; ?></td>
+                                <td><?= $Rollercoaster->Country; ?></td>
+                                <td class="text-center"><?= $Rollercoaster->TopSpeed; ?></td>
+                                <td class="text-center"><?= $Rollercoaster->Height; ?></td>
+                                <td ><?= $Rollercoaster->YOFC; ?></td>
+                                
+                                <td class="text-center">
+                                    <a href="update.php?id=<?=  $Rollercoaster->Id; ?>">
+                                      <i class="bi bi-pencil-square text-success"></i>
+                                    </a>
+                                </td>
+                                
+                                <td class='text-center'>
+                                    <a href="delete.php?id=<?= $Rollercoaster->Id; ?>">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>   
                     </tbody>
                 </table>
             </div>
@@ -135,6 +125,7 @@ var_dump($result);
 
     </div>
    
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
             crossorigin="anonymous">

@@ -1,7 +1,5 @@
 <?php
-    /**
-     * De inloggegevens van de gebruiker van de database staan hieronder
-     */
+   
      
 
 // De naam van onze mysql-server:
