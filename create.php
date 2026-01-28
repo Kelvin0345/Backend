@@ -118,7 +118,7 @@ if (isset($_POST['submit'])) {
 
                     <div class="mb-3">
                         <label for="inputYearOfConstruction" class="form-label">Bouwjaar:</label>
-                        <input name="bouwjaar" placeholder="Vul het bouwjaar in" type="text" class="form-control" id="inputYearOfConstruction"
+                        <input name="bouwjaar" placeholder="Vul het bouwjaar in" type="date" class="form-control" id="inputYearOfConstruction"
                                value="<?= $_POST['bouwjaar'] ?? '' ?>">
                     </div>
 
